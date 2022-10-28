@@ -32,8 +32,8 @@ paths:
                       type: string
                       format: uint64
                     createdAt:
-                      type: integer
-                      format: int32
+                      type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -164,8 +164,8 @@ paths:
                     type: string
                     format: uint64
                   createdAt:
-                    type: integer
-                    format: int32
+                    type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -252,6 +252,9 @@ paths:
                       type: string
                     body:
                       type: string
+                    createdAt:
+                      type: string
+                      format: int64
                 title: Return a list of posts
               pagination:
                 type: object
@@ -31427,14 +31430,22 @@ definitions:
         type: string
         format: uint64
       createdAt:
-        type: integer
-        format: int32
+        type: string
+        format: int64
+  blog.blog.MsgCreateCommentResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   blog.blog.MsgCreatePostResponse:
     type: object
     properties:
       id:
         type: string
         format: uint64
+  blog.blog.MsgDeleteCommentResponse:
+    type: object
   blog.blog.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -31450,6 +31461,9 @@ definitions:
         type: string
       body:
         type: string
+      createdAt:
+        type: string
+        format: int64
   blog.blog.QueryAllCommentResponse:
     type: object
     properties:
@@ -31471,8 +31485,8 @@ definitions:
               type: string
               format: uint64
             createdAt:
-              type: integer
-              format: int32
+              type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -31517,8 +31531,8 @@ definitions:
             type: string
             format: uint64
           createdAt:
-            type: integer
-            format: int32
+            type: string
+            format: int64
   blog.blog.QueryParamsResponse:
     type: object
     properties:
@@ -31543,6 +31557,9 @@ definitions:
               type: string
             body:
               type: string
+            createdAt:
+              type: string
+              format: int64
         title: Return a list of posts
       pagination:
         type: object

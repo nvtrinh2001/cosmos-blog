@@ -17,18 +17,18 @@ import (
 // }
 
 func (k Keeper) GetPost(ctx sdk.Context, id uint64) (val types.Post, found bool) {
-    store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
 
-    bz := make([]byte, 8)
-    binary.BigEndian.PutUint64(bz, id)
+	bz := make([]byte, 8)
+	binary.BigEndian.PutUint64(bz, id)
 
-    b := store.Get(bz)
-    if b == nil {
-        return val, false
-    }
+	b := store.Get(bz)
+	if b == nil {
+		return val, false
+	}
 
-    k.cdc.MustUnmarshal(b, &val)
-    return val, true
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
 }
 
 func (k Keeper) AppendPost(ctx sdk.Context, post types.Post) uint64 {

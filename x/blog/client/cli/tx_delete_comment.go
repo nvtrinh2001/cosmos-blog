@@ -13,29 +13,30 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCreateComment() *cobra.Command {
+func CmdDeleteComment() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-comment [post-id] [title] [body]",
-		Short: "Broadcast message create-comment",
-		Args:  cobra.ExactArgs(3),
+		Use:   "delete-comment [comment-id] [post-id]",
+		Short: "Broadcast message delete-comment",
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argPostID, err := cast.ToUint64E(args[0])
+			argCommentID, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argTitle := args[1]
-			argBody := args[2]
+			argPostID, err := cast.ToUint64E(args[1])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateComment(
+			msg := types.NewMsgDeleteComment(
 				clientCtx.GetFromAddress().String(),
+				argCommentID,
 				argPostID,
-				argTitle,
-				argBody,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

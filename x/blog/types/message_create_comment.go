@@ -10,40 +10,39 @@ const TypeMsgCreateComment = "create_comment"
 var _ sdk.Msg = &MsgCreateComment{}
 
 func NewMsgCreateComment(creator string, postID uint64, title string, body string) *MsgCreateComment {
-  return &MsgCreateComment{
+	return &MsgCreateComment{
 		Creator: creator,
-    PostID: postID,
-    Title: title,
-    Body: body,
+		PostID:  postID,
+		Title:   title,
+		Body:    body,
 	}
 }
 
 func (msg *MsgCreateComment) Route() string {
-  return RouterKey
+	return RouterKey
 }
 
 func (msg *MsgCreateComment) Type() string {
-  return TypeMsgCreateComment
+	return TypeMsgCreateComment
 }
 
 func (msg *MsgCreateComment) GetSigners() []sdk.AccAddress {
-  creator, err := sdk.AccAddressFromBech32(msg.Creator)
-  if err != nil {
-    panic(err)
-  }
-  return []sdk.AccAddress{creator}
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
 }
 
 func (msg *MsgCreateComment) GetSignBytes() []byte {
-  bz := ModuleCdc.MustMarshalJSON(msg)
-  return sdk.MustSortJSON(bz)
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
 }
 
 func (msg *MsgCreateComment) ValidateBasic() error {
-  _, err := sdk.AccAddressFromBech32(msg.Creator)
-  	if err != nil {
-  		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-  	}
-  return nil
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+	return nil
 }
-

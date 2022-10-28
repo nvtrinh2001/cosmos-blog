@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgCreateComment_ValidateBasic(t *testing.T) {
+func TestMsgDeleteComment_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgCreateComment
+		msg  MsgDeleteComment
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgCreateComment{
+			msg: MsgDeleteComment{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgCreateComment{
+			msg: MsgDeleteComment{
 				Creator: sample.AccAddress(),
 			},
 		},
